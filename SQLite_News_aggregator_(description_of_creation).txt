@@ -1,0 +1,235 @@
+.open News_aggregator.db
+CREATE TABLE Users (
+	UsersId           INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	Full_name         TEXT NOT NULL,
+	Age               INTEGER NOT NULL,
+	Country           TEXT NOT NULL,
+	City              TEXT NOT NULL,
+	Email             TEXT NOT NULL,
+	Date_subscription TEXT NOT NULL 
+);
+
+CREATE TABLE News_subscription (
+	News_subscriptionId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	Site                TEXT NOT NULL,
+	Country_sourse      TEXT NOT NULL
+);
+
+CREATE TABLE News_category (
+	News_categoryId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	Name_category   TEXT NOT NULL
+);
+
+CREATE TABLE News_keywords (
+	News_keywordsId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	Name_keywords   TEXT NOT NULL
+);
+
+CREATE TABLE Users_NS_NC (
+	Id       INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	Users_Id INTEGER REFERENCES Users(UsersId),
+	NS_Id    INTEGER REFERENCES News_subscription(News_subscriptionId),
+	NC_Id    INTEGER REFERENCES News_category(News_categoryId)
+);
+
+CREATE TABLE NS_NC (
+	Id       INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	NS_Id    INTEGER REFERENCES News_subscription(News_subscriptionId),
+	NC_Id    INTEGER REFERENCES News_category(News_categoryId)
+);
+
+CREATE TABLE NC_NK (
+	Id       INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	NC_Id    INTEGER REFERENCES News_category(News_categoryId),
+	NK_Id    INTEGER REFERENCES News_keywords(News_keywordsId)
+);
+
+--------------------------
+Filling in the tables:
+Users
+
+1. INSERT INTO Users (Full_name, Age, Country, City, Email, Date_subscription)
+VALUES ('Maxim Inanov', 23, 'Russia', 'Moscow', 'maxim11@mail.ru', '2012-03-20 08:15:00');
+
+2. INSERT INTO Users (Full_name, Age, Country, City, Email, Date_subscription)
+VALUES ('Sasha Petrov', 45, 'Russia', 'Cheliabinsk', 'sashapet@gmail.ru', '2008-06-11 15:15:00');
+
+3. INSERT INTO Users (Full_name, Age, Country, City, Email, Date_subscription)
+VALUES ('Kiany Rivz', 47, 'USA', 'Boston', 'matrix@gmail.ru', '2010-04-11 09:00:00');
+
+4. INSERT INTO Users (Full_name, Age, Country, City, Email, Date_subscription)
+VALUES ('Petro Ivanko', 14, 'Ukraine', 'Kiev', 'petrI@gmail.ru', '2018-09-26 12:13:00');
+
+5. INSERT INTO Users (Full_name, Age, Country, City, Email, Date_subscription)
+VALUES ('Abdula Aun Abrah', 25, 'India', 'New Delhi', 'AAunA@gmail.ru', '2017-05-21 10:15:00');
+
+News_subscription
+
+1. INSERT INTO News_subscription (Site, Country_sourse)
+VALUES ('1tv.ru', 'Russia');
+
+2. INSERT INTO News_subscription (Site, Country_sourse)
+VALUES ('csbsvnnq.com', 'USA');
+
+3. INSERT INTO News_subscription (Site, Country_sourse)
+VALUES ('putinforever.com', 'Russia');
+
+4. INSERT INTO News_subscription (Site, Country_sourse)
+VALUES ('bbc.com', 'UK');
+
+5. INSERT INTO News_subscription (Site, Country_sourse)
+VALUES ('pornhub.com', 'USA');
+
+News_category
+
+1. INSERT INTO News_category (Name_category)
+VALUES ('science');
+
+2. INSERT INTO News_category (Name_category)
+VALUES ('politics');
+
+3. INSERT INTO News_category (Name_category)
+VALUES ('for adults');
+
+4. INSERT INTO News_category (Name_category)
+VALUES ('wild world');
+
+5. INSERT INTO News_category (Name_category)
+VALUES ('travels');
+
+6. INSERT INTO News_category (Name_category)
+VALUES ('history');
+
+7. INSERT INTO News_category (Name_category)
+VALUES ('space');
+
+News_keywords
+
+1. INSERT INTO News_keywords (Name_keywords)
+VALUES ('cats');
+
+2. INSERT INTO News_keywords (Name_keywords)
+VALUES ('food');
+
+3. INSERT INTO News_keywords (Name_keywords)
+VALUES ('putin');
+
+4. INSERT INTO News_keywords (Name_keywords)
+VALUES ('trump');
+
+5. INSERT INTO News_keywords (Name_keywords)
+VALUES ('home');
+
+6. INSERT INTO News_keywords (Name_keywords)
+VALUES ('spacex');
+
+7. INSERT INTO News_keywords (Name_keywords)
+VALUES ('black hole');
+
+8. INSERT INTO News_keywords (Name_keywords)
+VALUES ('python');
+
+Users_NS_NC
+
+1. INSERT INTO Users_NS_NC (Users_Id, NS_Id, NC_Id)
+VALUES (4, 5, 3);
+
+2. INSERT INTO Users_NS_NC (Users_Id, NS_Id, NC_Id)
+VALUES (1, 1, 2);
+
+3. INSERT INTO Users_NS_NC (Users_Id, NS_Id, NC_Id)
+VALUES (1, 2, 2);
+
+4. INSERT INTO Users_NS_NC (Users_Id, NS_Id, NC_Id)
+VALUES (2, 2, 3);
+
+5. INSERT INTO Users_NS_NC (Users_Id, NS_Id, NC_Id)
+VALUES (3, 4, 5);
+
+6. INSERT INTO Users_NS_NC (Users_Id, NS_Id, NC_Id)
+VALUES (5, 3, 2);
+
+7. INSERT INTO Users_NS_NC (Users_Id, NS_Id, NC_Id)
+VALUES (5, 2, 1);
+
+8. INSERT INTO Users_NS_NC (Users_Id, NS_Id, NC_Id)
+VALUES (3, 5, 3);
+
+9. INSERT INTO Users_NS_NC (Users_Id, NS_Id, NC_Id)
+VALUES (3, 4, 6);
+
+NS_NC
+
+1. INSERT INTO NS_NC (NS_Id, NC_Id)
+VALUES (1, 2);
+
+2. INSERT INTO NS_NC (NS_Id, NC_Id)
+VALUES (1, 4);
+
+3. INSERT INTO NS_NC (NS_Id, NC_Id)
+VALUES (2, 1);
+
+4. INSERT INTO NS_NC (NS_Id, NC_Id)
+VALUES (2, 2);
+
+5. INSERT INTO NS_NC (NS_Id, NC_Id)
+VALUES (2, 3);
+
+6. INSERT INTO NS_NC (NS_Id, NC_Id)
+VALUES (2, 4);
+
+7. INSERT INTO NS_NC (NS_Id, NC_Id)
+VALUES (3, 2);
+
+8. INSERT INTO NS_NC (NS_Id, NC_Id)
+VALUES (4, 5);
+
+9. INSERT INTO NS_NC (NS_Id, NC_Id)
+VALUES (4, 6);
+
+10. INSERT INTO NS_NC (NS_Id, NC_Id)
+VALUES (5, 3);
+
+NC_NK
+
+1. INSERT INTO NC_NK (NC_Id, NK_Id)
+VALUES (1, 6);
+
+2. INSERT INTO NC_NK (NC_Id, NK_Id)
+VALUES (1, 7);
+
+3. INSERT INTO NC_NK (NC_Id, NK_Id)
+VALUES (1, 8);
+
+4. INSERT INTO NC_NK (NC_Id, NK_Id)
+VALUES (2, 3);
+
+5. INSERT INTO NC_NK (NC_Id, NK_Id)
+VALUES (2, 4);
+
+6. INSERT INTO NC_NK (NC_Id, NK_Id)
+VALUES (3, 1);
+
+7. INSERT INTO NC_NK (NC_Id, NK_Id)
+VALUES (3, 4);
+
+8. INSERT INTO NC_NK (NC_Id, NK_Id)
+VALUES (3, 7);
+
+9. INSERT INTO NC_NK (NC_Id, NK_Id)
+VALUES (4, 1);
+
+10. INSERT INTO NC_NK (NC_Id, NK_Id)
+VALUES (4, 8);
+
+11. INSERT INTO NC_NK (NC_Id, NK_Id)
+VALUES (5, 2);
+
+12. INSERT INTO NC_NK (NC_Id, NK_Id)
+VALUES (6, 3);
+
+13. INSERT INTO NC_NK (NC_Id, NK_Id)
+VALUES (6, 4);
+
+14. INSERT INTO NC_NK (NC_Id, NK_Id)
+VALUES (7, 7);
